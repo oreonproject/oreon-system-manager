@@ -1,4 +1,5 @@
-use std::process::Stdio;
+use std::collections::HashMap;
+use std::process::{Command, Stdio};
 
 use gtk::{Box as GBox, Button, Expander, Label, ListBox, Orientation, ScrolledWindow, SearchBar, SearchEntry, Stack, StackSwitcher, Switch};
 use gtk::gdk::Display;
@@ -44,6 +45,26 @@ macro_rules! pkg_list_btn {
 
         $a.append(b);
     }
+}
+
+macro_rules! pkg_list_btns {
+    ($a:expr,$e:expr,$i:expr) => {
+        let bbox = ListBox::builder()
+            .css_classes(["bbox"])
+            .build();
+        for i in $i {
+            bbox.append(&i);
+        }
+
+        let b = &Expander::builder()
+            .label($e)
+            .css_classes(["pkg-ls-btn"])
+            .child(&bbox)
+            .build();
+
+        $a.append(b);
+
+    };
 }
 
 macro_rules! label {
@@ -186,12 +207,55 @@ fn begin(app: &Application) {
         .valign(Align::Center)
         .width_request(600)
         .build();
+
+    let repo_list_0 = Command::new("dnf")
+        .arg("repolist")
+        .output()
+        .expect("Failed to get repo list!")
+        .stdout.iter().map(|x| *x as char).collect::<String>();
+    let repo_list = repo_list_0.split('\n')
+        .skip(1)
+        .map(|x| {
+            let y = x.split_whitespace().collect::<Vec<&str>>();
+            (y[0], y[1..].join(" "))
+        }).clone();
+
+    let mut pkg_lists = HashMap::new();
+
+    for i in repo_list {
+        let x = Command::new("dnf")
+                    .args(["repoquery", "--repo", i.0, "-q", "--qf", "%{name}"])
+                    .output()
+                    .expect("Failed to fetch package list from repo.")
+                    .stdout.iter().map(|x| *x as char).collect::<String>()
+                    .clone();
+
+        pkg_lists.insert(i.1.clone(), x.clone().split('\n').map(|x| x.to_string()).collect::<Vec<String>>());
+                         // dnf repoquery --repo fedora-cisco-openh264 -q --qf %{name}
+    }
  
-    pkg_list_item!(pkgs_list, "Hello, world!", "Goodbye, world!");
+    /*
+    let pkg_list = Command::new("dnf")
+        .args(["repoquery", "-q", "--qf", "%{name}"])
+        .output()
+        .expect("Failed to get package list!")
+        .stdout.iter().map(|x| *x as char).collect::<String>();*/
+
+    for (i, x) in pkg_lists.into_iter() {
+        let mut list = vec![];
+
+        for y in x {
+            list.push(label!(&y).clone());
+        }
+
+        pkg_list_btns!(pkgs_cat_list, i, list);
+    }
+
+    /*pkg_list_item!(pkgs_list, "Hello, world!", "Goodbye, world!");
     pkg_list_btn!(pkgs_cat_list, "Category 1", label!("Item 1"), label!("Item 2"));
     pkg_list_btn!(pkgs_cat_list, "Category 2", label!("Item 1"), label!("Item 2"));
     pkg_list_btn!(pkgs_cat_list, "Category 3", label!("Item 1"), label!("Item 2"));
-    pkg_list_btn!(pkgs_cat_list, "Category 4", label!("Item 1"), label!("Item 2"));
+    pkg_list_btn!(pkgs_cat_list, "Category 4", label!("Item 1"), label!("Item 2"));*/
 
     // TODO: Add support for searching.
     pkg_ls_stack.add_titled(&pkgs_list, Some("pkgs-list"), "pkgs-list");
