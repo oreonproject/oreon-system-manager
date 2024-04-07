@@ -1,0 +1,82 @@
+.sidebar {
+    margin: 10px;
+    background: none;
+    box-shadow: none;
+    border: none;
+}
+
+.sidebar button {
+    color: #ffffff;
+    background: #5c5c5c;
+    padding: 10px;
+    font-weight: bold;
+    margin: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+}
+
+.sidebar button:hover {
+    background: #2f5faa;
+}
+
+.sidebar button:checked {
+    background: #1f4e99;
+}
+
+.search-bar {
+    background: #ff0000;
+}
+
+/*buttons-box:hover {
+    background: #ff0000;
+}
+
+boxes:hover {
+    background: #ff0000;
+}*/
+
+.entries {
+    color: black;
+    border-radius: 10px;
+    background: #ffffff;
+    border: none;
+    font-size: 20px;
+}
+
+.label {
+    font-size: 14px;
+}
+
+.pkg-ls-btn, .pkg-ls-btn *, .pkgs-list, .pkgs-list *, .bbox, .bbox * .pkg-ls-win {
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.pkg-ls-win {
+    background: #3c3c3c;
+    border-radius: 10px;
+}
+
+.opt {
+    margin: 10px;
+}
+
+.opt-box {
+    font-size: 20px;
+}
+
+.container-button {
+    font-size: 20px;
+    padding: 20px;
+    margin: 20px;
+}
+
+/*.sidebar button {
+    margin: 10px;
+    background: #ff0000;
+}
+
+.sidebar button:checked {
+    background: #ffffff;
+}*/
