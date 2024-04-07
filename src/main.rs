@@ -180,6 +180,7 @@ fn begin(app: &Application) {
         .build();
 
     let pkgs_cat_list = ListBox::builder()
+        .selection_mode(gtk::SelectionMode::None)
         .css_classes(["pkgs-categories"])
         .halign(Align::Center)
         .valign(Align::Center)
@@ -275,6 +276,7 @@ fn begin(app: &Application) {
  
     let main_box = GBox::builder()
         .orientation(Orientation::Vertical)
+        .css_classes(["main"])
         .build();
 
     main_box.append(&sidebar);
