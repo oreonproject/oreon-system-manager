@@ -144,8 +144,8 @@ macro_rules! container {
                 .build();
             example_container_button.connect_clicked(|_| {
                 println!("docker pulling {}", $name.to_lowercase());
-                let x = std::process::Command::new("admin:///usr/bin/docker")
-                    .arg("images")
+                let x = std::process::Command::new("pkexec")
+                    .args(["docker", "images"])
                     .stdout(Stdio::piped())
                     .spawn()
                     .expect("failed to execute child process");
