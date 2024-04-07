@@ -40,7 +40,7 @@
     font-size: 14px;
 }
 
-.pkg-ls-btn, .pkg-ls-btn *, .pkgs-list, .pkgs-list *, .bbox, .bbox * .pkg-ls-win {
+.pkg-ls-btn, .pkg-ls-btn *, .pkgs-list, .pkgs-list *, .pkgs-categories, .pkgs-categories *, .bbox, .bbox * .pkg-ls-win {
     font-size: 20px;
     border-radius: 10px;
     background: #2c2c2c;
@@ -75,4 +75,12 @@
 
 .main {
     background-color: #2f2f2f;
+}
+
+* {
+    color: #ffffff;
+}
+
+.bbox, .bbox:hover {
+    background: #2c2c2c;
 }
