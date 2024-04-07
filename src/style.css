@@ -28,14 +28,6 @@
     background: #ff0000;
 }
 
-/*buttons-box:hover {
-    background: #ff0000;
-}
-
-boxes:hover {
-    background: #ff0000;
-}*/
-
 .entries {
     color: black;
     border-radius: 10px;
@@ -71,12 +63,3 @@ boxes:hover {
     padding: 20px;
     margin: 20px;
 }
-
-/*.sidebar button {
-    margin: 10px;
-    background: #ff0000;
-}
-
-.sidebar button:checked {
-    background: #ffffff;
-}*/
