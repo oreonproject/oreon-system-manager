@@ -52,6 +52,7 @@ macro_rules! pkg_list_btns {
         let bbox = ListBox::builder()
             .css_classes(["bbox"])
             .build();
+
         for i in $i {
             bbox.append(&i);
         }
@@ -79,6 +80,24 @@ macro_rules! label {
             .label($val)
             .css_classes([$($css),+])
             .build()
+    }
+}
+
+macro_rules! button {
+    ($val:expr,$($css:expr),+) => {
+        {
+            let b = &Button::builder()
+                .label($val)
+                .css_classes([$($css),+])
+                .build();
+
+            b.connect_clicked(|_| {
+                Command::new("dnf")
+                    .args(["install", $val])
+                    .spawn()
+                    .expect("Failed to install package");
+            });
+        }
     }
 }
 
@@ -125,8 +144,8 @@ macro_rules! container {
                 .build();
             example_container_button.connect_clicked(|_| {
                 println!("docker pulling {}", $name.to_lowercase());
-                let x = std::process::Command::new("sudo")
-                    .args(["docker", "images"])
+                let x = std::process::Command::new("admin:///usr/bin/docker")
+                    .arg("images")
                     .stdout(Stdio::piped())
                     .spawn()
                     .expect("failed to execute child process");
