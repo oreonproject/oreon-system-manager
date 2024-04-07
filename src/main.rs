@@ -210,27 +210,31 @@ fn begin(app: &Application) {
 
     let repo_list_0 = Command::new("dnf")
         .arg("repolist")
+        .stdout(Stdio::piped())
+        .spawn()
+        .expect("Failed to get repo list!");
+
+    let repo_list_1 = Command::new("grep")
+        .args(["-Po", "^\\S+"])
+        .stdin(repo_list_0.stdout.unwrap())
         .output()
-        .expect("Failed to get repo list!")
+        .expect("Failed to get repo list")
         .stdout.iter().map(|x| *x as char).collect::<String>();
-    let repo_list = repo_list_0.split('\n')
-        .skip(1)
-        .map(|x| {
-            let y = x.split_whitespace().collect::<Vec<&str>>();
-            (y[0], y[1..].join(" "))
-        }).clone();
+
+    let repo_list = repo_list_1.split('\n')
+        .skip(1);
 
     let mut pkg_lists = HashMap::new();
 
     for i in repo_list {
         let x = Command::new("dnf")
-                    .args(["repoquery", "--repo", i.0, "-q", "--qf", "%{name}"])
+                    .args(["repoquery", "--repo", i, "-q", "--qf", "%{name}"])
                     .output()
                     .expect("Failed to fetch package list from repo.")
                     .stdout.iter().map(|x| *x as char).collect::<String>()
                     .clone();
 
-        pkg_lists.insert(i.1.clone(), x.clone().split('\n').map(|x| x.to_string()).collect::<Vec<String>>());
+        pkg_lists.insert(i, x.clone().split('\n').map(|x| x.to_string()).collect::<Vec<String>>());
                          // dnf repoquery --repo fedora-cisco-openh264 -q --qf %{name}
     }
  
