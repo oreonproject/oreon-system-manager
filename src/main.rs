@@ -13,7 +13,7 @@ fn main() -> glib::ExitCode {
 
     app.connect_startup(|_| {
         let provider = CssProvider::new();
-        provider.load_from_path("/usr/share/oreon/oreon-system-manager/style.css");
+        provider.load_from_string(include_str!("style.css"));
 
         gtk::style_context_add_provider_for_display(
             &Display::default().expect("Could not connect to a display."),

@@ -71,6 +71,10 @@
     font-size: 20px;
     padding: 20px;
     margin: 20px;
+    border-radius: 10px;
+    border: none;
+    background: #4c4c4c;
+    color: #ffffff;
 }
 
 .main {
