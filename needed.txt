@@ -1,0 +1,3 @@
+cargo
+cairo-gobject-devel
+gtk4-devel

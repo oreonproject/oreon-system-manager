@@ -6,7 +6,7 @@ use gtk::gdk::Display;
 use gtk::{prelude::*, Align, CssProvider};
 use gtk::{glib, Application, ApplicationWindow};
 
-const APP_ID: &str = "com.boostyconnect.oreon.SystemManager";
+const APP_ID: &str = "org.oreonproject.SystemManager";
 
 fn main() -> glib::ExitCode {
     let app = Application::builder().application_id(APP_ID).build();
@@ -27,7 +27,7 @@ fn main() -> glib::ExitCode {
     app.run()
 }
 
-macro_rules! pkg_list_btn {
+/*macro_rules! pkg_list_btn {
     ($a:expr,$e:expr,$($i:expr),+) => {
         let bbox = ListBox::builder()
             .css_classes(["bbox"])
@@ -45,7 +45,7 @@ macro_rules! pkg_list_btn {
 
         $a.append(b);
     }
-}
+}*/
 
 macro_rules! pkg_list_btns {
     ($a:expr,$e:expr,$i:expr) => {
@@ -83,7 +83,7 @@ macro_rules! label {
     }
 }
 
-macro_rules! button {
+/*macro_rules! button {
     ($val:expr,$($css:expr),+) => {
         {
             let b = &Button::builder()
@@ -100,8 +100,8 @@ macro_rules! button {
         }
     }
 }
-
-macro_rules! pkg_list_item {
+*/
+/*macro_rules! pkg_list_item {
     ($a:expr,$e:expr) => {
         $a.append(label!($e,"pkg-ls-item"))
     };
@@ -109,7 +109,7 @@ macro_rules! pkg_list_item {
         pkg_list_item!($a, $e);
         pkg_list_item!($a, $($f),+);
     }
-}
+}*/
 
 macro_rules! switch {
     ($label:expr) => {

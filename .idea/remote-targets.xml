@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteTargetsManager">
+    <option name="projectDefaultTargetUuid" value="3a25ac56-0ee1-4834-b804-6efa877de3d9" />
+    <targets>
+      <target name="fedora:latest" type="docker" uuid="3a25ac56-0ee1-4834-b804-6efa877de3d9">
+        <config>
+          <option name="targetPlatform">
+            <TargetPlatform />
+          </option>
+          <option name="buildNotPull" value="false" />
+          <option name="containerConfig">
+            <ContainerConfig>
+              <option name="runCliOptions" value="--entrypoint= --rm --privileged --env DISPLAY=$DISPLAY" />
+            </ContainerConfig>
+          </option>
+          <option name="pullImageConfig">
+            <PullImageConfig>
+              <option name="tagToPull" value="fedora:latest" />
+            </PullImageConfig>
+          </option>
+        </config>
+        <ContributedStateBase type="RsLanguageRuntime">
+          <config>
+            <option name="cargoPath" value="/usr/bin/cargo" />
+            <option name="cargoVersion" value="OCI runtime exec failed: exec failed: unable to start container process: exec: &quot;OCI&quot;: executable file not found in $PATH: unknown" />
+            <option name="rustcPath" value="/usr/bin/rustc" />
+            <option name="rustcVersion" value="OCI runtime exec failed: exec failed: unable to start container process: exec: &quot;OCI&quot;: executable file not found in $PATH: unknown" />
+          </config>
+        </ContributedStateBase>
+      </target>
+    </targets>
+  </component>
+</project>
